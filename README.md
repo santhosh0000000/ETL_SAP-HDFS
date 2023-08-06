@@ -3,12 +3,40 @@ database, transform it (although no transformation is happening in this script),
 
 Here's a step-by-step explanation of the code:
 
-Connection details for the SAP HANA database, such as host, port, username, and password, are defined.
-The JDBC URL for the SAP HANA database is constructed using the host and port details.
-The schema and table name for the data to be extracted from the SAP HANA database are defined.
-A SQL query is constructed to retrieve all data from the specified SAP HANA table.
-A SparkSession is built with the application name "SparkConnector" and is configured to use all available cores for local execution.
-The spark.read() method is used to connect to the SAP HANA database using the JDBC URL, username, and password.
-The SQL query is executed on the SAP HANA database and the result is loaded into a DataFrame.
-The DataFrame is written as a CSV file to the specified HDFS path, with a header line included.
-Finally, the SparkSession is stopped.
+1. Package Declaration
+The code is part of the package com.ssk.app.
+
+2. Importing Libraries
+The necessary Spark classes for working with Datasets and Spark sessions are imported.
+
+3. Main Class Definition
+The main class spark_ETL is defined, and the main method is declared.
+
+4. Defining SAP Database Connection Parameters
+Connection parameters for the SAP database are defined, such as host, port, username, password, schema, and table name. The JDBC URL is constructed using the host and port.
+
+5. Constructing SQL Query
+A SQL query is created to select all records from the specified schema and table in the SAP database.
+
+6. Creating Spark Session
+A SparkSession is created using the SparkSession.builder() method with the following configuration:
+
+appName("SparkConnector"): Sets the application name.
+master("local[*]"): Specifies that the code should run locally, using all available cores.
+7. Loading Data from SAP Database
+Data is loaded from the SAP database into a Spark DataFrame using the JDBC connection parameters and the SQL query. The format("jdbc") method specifies the use of the JDBC connection.
+
+8. Specifying HDFS Output Path
+The output path for the resulting CSV file in HDFS is defined.
+
+9. Writing Data to HDFS as CSV
+The DataFrame is written to the specified HDFS path as a CSV file. The option("header", "true") part ensures that the header (column names) is included in the output file.
+
+10. Stopping Spark Session
+The Spark session is stopped using spark.stop(), which releases resources associated with the session.
+
+Considerations
+Sensitive Information: The code includes sensitive information such as the database username and password. It's advisable to handle these securely, e.g., using configuration files or environment variables.
+Error Handling: The code doesn't include error handling, so any issues (e.g., connection failures, SQL errors) would lead to unhandled exceptions.
+JDBC Driver: The code assumes that the necessary JDBC driver for SAP is available in the classpath.
+Dependencies: The appropriate dependencies for Spark and the JDBC driver must be included in the project.
