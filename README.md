@@ -1,5 +1,4 @@
 # ETL_SAP-HDFS
-database, transform it (although no transformation is happening in this script), and then load it into a Hadoop Distributed File System (HDFS) as a CSV file. This process is often referred to as ETL (Extract, Transform, Load).
 
 Here's a step-by-step explanation of the code:
 
